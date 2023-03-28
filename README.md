@@ -20,5 +20,5 @@ Bootstrap
 # Contributors 
 Sophia Ndalo
 
-License
-# cinemania-frontend
+# Licence
+cinemania-frontend
