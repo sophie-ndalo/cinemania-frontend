@@ -7,6 +7,7 @@ import Navbar from './components/NavBar';
 import { Routes, Route} from 'react-router-dom';
 import MovieUsers from './components/MoviesUsers';
 import LoginForm from './components/LoginForm';
+import SignupLogin from './components/SignupLogin';
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
         <Route path='/' element={<Home/>}/>
         <Route path='/movielist' element={<MovieList/>}/>
         <Route path='/moviesusers' element={<MovieUsers/>}/>
-        <Route path='/loginform' element={<LoginForm/>}/>
+       
+        <Route path='/signuplogin' element={<SignupLogin/>}/>
       </Routes>
      
     </div>

@@ -18,7 +18,7 @@ function MovieUsers() {
       {movies && Array.isArray(movies) && movies.length > 0 ? (
         movies.map((movie) => (
           
-       <div className="col-4" style={{ marginTop: "30px", borderRadius: "10px", background: "red", height: "500px", width: "500px"}} key={movie.id}>
+       <div className="col-4" style={{ marginTop: "30px", borderRadius: "10px", height: "500px", width: "500px"}} key={movie.id}>
          <div className="card" style={{ width: "35rem" }}>
               <video className="card-img-top" style={{ display: "flex", marginTop: "10%", marginLeft: "10%"}} src={movie.video_url} width="400" height="300" controls />
            <div className="card-body" style={{ color:"white" }}>

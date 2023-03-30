@@ -46,10 +46,11 @@ function AddMovie() {
   return (
     <div>
       <h1>Add Movie</h1>
-      <form onSubmit={addMovie}>
-        <label>
+      <div className="card">
+      <form style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "50px", marginTop: "2px" }} onSubmit={addMovie} >
+        <label style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "50px" }}>
           Title:
-          <input
+          <input style={{ padding: "10px", marginTop: "10px", border: "2px solid", borderColor: "#ccc", borderRadius: "4px", width: "100%"}}
             onChange={handleChange}
             type="text"
             name="title"
@@ -59,9 +60,9 @@ function AddMovie() {
         </label>
         <br />
 
-        <label>
+        <label style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "50px" }}>
           Description:
-          <textarea
+          <textarea style={{ padding: "10px", marginTop: "10px", border: "2px solid", borderColor: "#ccc", borderRadius: "5px", width: "100%"}}
             onChange={handleChange}
             type="text"
             name="description"
@@ -71,9 +72,9 @@ function AddMovie() {
         </label>
         <br />
 
-        <label>
+        <label style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "50px" }}>
           Duration:
-          <input
+          <input style={{ padding: "10px", marginTop: "10px", border: "2px solid", borderColor: "#ccc", borderRadius: "4px", width: "100%"}}
             onChange={handleChange}
             type="text"
             name="duration"
@@ -83,9 +84,9 @@ function AddMovie() {
         </label>
         <br />
 
-        <label>
+        <label style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "50px" }}>
           Movie File:
-          <input
+          <input style={{ marginTop: "20px" }}
             type="file"
             name="video"
             onChange={handleMovieFileChange}
@@ -93,10 +94,47 @@ function AddMovie() {
         </label>
         <br />
 
-        <button type="submit">Add Movie</button>
+        <button type="submit" style={{ background: "#4CAF50", color: "white", padding: "10px 20px", border: "none", borderRadius: "4px", cursor: "pointer", marginTop: "20px" }}>Add Movie</button>
       </form>
+      </div>
     </div>
   );
 }
 
 export default AddMovie;
+
+// form {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   margin-top: 50px;
+// }
+
+// label {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: flex-start;
+//   margin-bottom: 20px;
+// }
+
+// input, textarea {
+//   padding: 10px;
+//   margin-top: 10px;
+//   border: 2px solid #ccc;
+//   border-radius: 4px;
+//   width: 100%;
+// }
+
+// input[type="file"] {
+//   margin-top: 20px;
+// }
+
+// button[type="submit"] {
+//   background-color: #4CAF50;
+//   color: white;
+//   padding: 10px 20px;
+//   border: none;
+//   border-radius: 4px;
+//   cursor: pointer;
+//   margin-top: 20px;
+// }
