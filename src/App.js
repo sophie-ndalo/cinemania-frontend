@@ -8,6 +8,7 @@ import { Routes, Route} from 'react-router-dom';
 import MovieUsers from './components/MoviesUsers';
 import LoginForm from './components/LoginForm';
 import SignupLogin from './components/SignupLogin';
+import MyList from './components/MyList';
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
         <Route path='/' element={<Home/>}/>
         <Route path='/movielist' element={<MovieList/>}/>
         <Route path='/moviesusers' element={<MovieUsers/>}/>
-       
+        <Route path='/mylist' element={<MyList/>}/>
         <Route path='/signuplogin' element={<SignupLogin/>}/>
       </Routes>
      

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function MovieList() {
   const [movies, setMovies] = useState([]);
@@ -83,6 +84,11 @@ function MovieList() {
   return (
     <div>
       <h1>Movie List</h1>
+      <li className="nav-item" style={{ marginTop: "50px", listStyle: "none", display: "flex", flexDirection: "row", alignItems: "center", width: "100%", marginLeft: "10%"}}>
+      <Link className="nav-link" to="/mylist">
+        My List
+      </Link>
+    </li>
       <div style={{ display: "flex", flexWrap: "wrap", display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
         {movies.map((movie) => (
           <div key={movie.id} style={{ width: "25%", padding: "10px" }}>

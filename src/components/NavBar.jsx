@@ -28,6 +28,11 @@ function Navbar() {
         Admin
       </Link>
     </li>
+    {/* <li className="nav-item" style={{ marginTop: "50px" }}>
+      <Link className="nav-link" to="/mylist">
+        My List
+      </Link>
+    </li> */}
     {/* <li className="nav-item">
       <Link className="nav-link" to="/loginform">
         LoginForm
