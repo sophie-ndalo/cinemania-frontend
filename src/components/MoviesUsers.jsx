@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
-function MovieUsers() {
+function MovieList() {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -13,25 +13,93 @@ function MovieUsers() {
         console.log(error);
       });
   }, []);
+
+  const handleDelete = (id) => {
+    fetch(`http://localhost:3000/movies/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          setMovies((movies) => movies.filter((movie) => movie.id !== id));
+        } else {
+          console.log("Failed to delete movie.");
+        }
+      })
+      .catch((error) => console.error(error));
+  };
+
+  const handleEdit = (id) => {
+    const movie = movies.find((movie) => movie.id === id);
+
+    // Show an input dialog for each field to edit
+    const newTitle = prompt("Enter a new title for the movie:", movie.title);
+    const newDescription = prompt(
+      "Enter a new description for the movie:",
+      movie.description
+    );
+    const newDuration = prompt(
+      "Enter a new duration for the movie:",
+      movie.duration
+    );
+    const newVideoUrl = prompt(
+      "Enter a new video URL for the movie:",
+      movie.videoUrl
+    );
+
+    const updatedMovie = {
+      ...movie,
+      title: newTitle || movie.title,
+      description: newDescription || movie.description,
+      duration: newDuration || movie.duration,
+      videoUrl: newVideoUrl || movie.videoUrl,
+    };
+
+    // Send a PATCH request to update the movie on the server
+    fetch(`http://localhost:3000/movies/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedMovie),
+    })
+      .then((response) => {
+        if (response.ok) {
+          // Update the movies array with the updated movie
+          setMovies((movies) =>
+            movies.map((movie) =>
+              movie.id === id ? { ...movie, ...updatedMovie } : movie
+            )
+          );
+        } else {
+          console.log("Failed to update movie.");
+        }
+      })
+      .catch((error) => console.error(error));
+  };
+
   return (
-    <div className="row" style={{ display: "flex", flexWrap: "wrap", background: "#0d0907"}}>
-      {movies && Array.isArray(movies) && movies.length > 0 ? (
-        movies.map((movie) => (
-          
-       <div className="col-4" style={{ marginTop: "30px", borderRadius: "10px", height: "500px", width: "500px"}} key={movie.id}>
-         <div className="card" style={{ width: "35rem" }}>
-              <video className="card-img-top" style={{ display: "flex", marginTop: "10%", marginLeft: "10%"}} src={movie.video_url} width="400" height="300" controls />
-           <div className="card-body" style={{ color:"white" }}>
-             <h5 className="card-title">{movie.title}</h5>
-             <p>{movie.description}</p>
-             <p>{movie.duration}</p>
+    <div>
+      <h1>Movie List</h1>
+      <div style={{ display: "flex", flexWrap: "wrap", display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
+        {movies.map((movie) => (
+          <div key={movie.id} style={{ width: "25%", padding: "10px" }}>
+           
+            <video src={movie.videoUrl} width="100%" height="auto" controls />
+            <h2>{movie.title}</h2>
+            <p>{movie.description.slice(0, 20)}...</p>
+            <p>{movie.duration} minutes</p>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              
+              <button onClick={() => handleEdit(movie.id)}>Add to My List</button>
+            </div>
           </div>
-         </div>
-       </div>
-        ))
-      ) : (
-        <p>No movies found.</p>
-      )}
+        ))}
+      </div>
     </div>
   );
-} export default MovieUsers;
+}
+
+export default MovieList;

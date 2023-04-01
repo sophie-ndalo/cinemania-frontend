@@ -46,7 +46,7 @@ function AddMovie() {
   return (
     <div>
       <h1>Add Movie</h1>
-      <div className="card">
+      <div className="card" style={{ background :"gray" }}>
       <form style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "50px", marginTop: "2px" }} onSubmit={addMovie} >
         <label style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "50px" }}>
           Title:
