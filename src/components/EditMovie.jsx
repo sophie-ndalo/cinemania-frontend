@@ -109,7 +109,7 @@ function EditMovie({ movie, onEdit }) {
         </>
       ) : (
         <button
-          style={{ width: "60px", height: "30px", padding: "2px", clolor: "white", padding: "10px 20px", boder: "none", borderRadius: "4px", cursor: "pointer", scrollSnapMarginBottom: "70%", marginRight: "10%" }}
+        style={{ background: "#0700C4", color: "white", padding: "10px 20px", border: "none", borderRadius: "4px", cursor: "pointer", marginTop: "20px" }}
           className="btn btn-dark text-white mx-3 "
           onClick={handleEditClick}
         >

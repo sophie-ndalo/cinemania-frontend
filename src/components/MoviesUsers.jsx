@@ -88,12 +88,12 @@ function MovieList() {
           <div key={movie.id} style={{ width: "25%", padding: "10px" }}>
            
             <video src={movie.videoUrl} width="100%" height="auto" controls />
-            <h2>{movie.title}</h2>
-            <p>{movie.description.slice(0, 20)}...</p>
-            <p>{movie.duration} minutes</p>
+            <h2>Tttle : {movie.title}</h2>
+            <p>Description : {movie.description.slice(0, 20)}...</p>
+            <p>Duration : {movie.duration} minutes</p>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               
-              <button onClick={() => handleEdit(movie.id)}>Add to My List</button>
+              <button style={{ background: "#7c6e7f", color: "white", padding: "10px 20px", border: "none", borderRadius: "4px", cursor: "pointer", marginTop: "20px" }}onClick={() => handleEdit(movie.id)}>Add to My List</button>
             </div>
           </div>
         ))}

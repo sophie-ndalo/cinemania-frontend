@@ -12,7 +12,7 @@ function MovieList() {
         setMovies(data);
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   }, []);
 
@@ -27,101 +27,67 @@ function MovieList() {
         if (response.ok) {
           setMovies((movies) => movies.filter((movie) => movie.id !== id));
         } else {
-          console.log("Failed to delete movie.");
+          console.error("Failed to delete movie.");
         }
       })
       .catch((error) => console.error(error));
   };
 
-  const handleEdit = (id) => {
-    const movie = movies.find((movie) => movie.id === id);
+  const handleEdit = (id, title, description, duration, videoFile) => {
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("duration", duration);
+    formData.append("videoFile", videoFile);
 
-    // Show an input dialog for each field to edit
-    const newTitle = prompt("Enter a new title for the movie:", movie.title);
-    const newDescription = prompt(
-      "Enter a new description for the movie:",
-      movie.description
-    );
-    const newDuration = prompt(
-      "Enter a new duration for the movie:",
-      movie.duration
-    );
-    const newVideoUrl = prompt(
-      "Enter a new video URL for the movie:",
-      movie.videoUrl
-    );
-
-    const updatedMovie = {
-      ...movie,
-      title: newTitle || movie.title,
-      description: newDescription || movie.description,
-      duration: newDuration || movie.duration,
-      videoUrl: newVideoUrl || movie.videoUrl,
-    };
-
-    // Send a PATCH request to update the movie on the server
     fetch(`http://localhost:3000/movies/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedMovie),
+      method: "PUT",
+      body: formData,
     })
       .then((response) => {
         if (response.ok) {
-          // Update the movies array with the updated movie
-          setMovies((movies) =>
-            movies.map((movie) =>
-              movie.id === id ? { ...movie, ...updatedMovie } : movie
-            )
-          );
+          return response.json();
         } else {
-          console.log("Failed to update movie.");
+          console.error("Failed to update movie.");
+          throw new Error("Failed to update movie.");
         }
+      })
+      .then((updatedMovie) => {
+        setMovies((movies) =>
+          movies.map((movie) =>
+            movie.id === updatedMovie.id ? updatedMovie : movie
+          )
+        );
       })
       .catch((error) => console.error(error));
   };
 
   return (
-    <div >
-    <AddMovie />
-    <h1 style={{ marginBottom: "30px" }}>Movie List</h1>
-    <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
-      {movies.map((movie) => (
-        <div key={movie.id} style={{ width: "25%", padding: "10px" }}>
-          <video src={movie.videoUrl} width="100%" height="auto" controls />
-  
-          <h2 style={{ marginTop: "10px" }}>{movie.title}</h2>
-          <p style={{ marginTop: "10px" }}>{movie.description.slice(0, 20)}...</p>
-          <p style={{ marginTop: "10px" }}>{movie.duration}</p>
-  
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginTop: "10px",
-            }}
-          >
-            <button
-              style={{
-                backgroundColor: "red",
-                color: "white",
-                padding: "5px 10px",
-                borderRadius: "5px",
-                marginRight: "10px",
-              }}
-              onClick={() => handleDelete(movie.id)}
-            >
-              Delete
-            </button>
-            {/* <EditMovie/> */}
+    <div style={{ background: "gray" }}>
+      <AddMovie />
+      <h1 style={{ marginBottom: "30px" }}>Movie List</h1>
+      <div
+        style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
+      >
+        {movies.map((movie) => (
+          <div key={movie.id} style={{ width: "25%", padding: "10px" }}>
+            <video src={movie.videoUrl} width="100%" height="auto" controls />
+            <h2>Title : {movie.title}</h2>
+            <p>Description : {movie.description.slice(0, 20)}...</p>
+            <p>Duration : {movie.duration}</p>
+            <div>
+              <button style={{ background: "#BA110C", color: "white", padding: "10px 20px", border: "none", borderRadius: "4px", cursor: "pointer", marginTop: "20px" }}onClick={() => handleEdit(movie.id)}>Delete</button>
+            </div>
+            <EditMovie
+              key={movie.id}
+              movie={movie}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
-  </div>
-  
   );
 }
 
